@@ -43,6 +43,9 @@ private	int  score;
 		}
 		this.score  = score;
 	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	
 	
 

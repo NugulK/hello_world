@@ -33,14 +33,14 @@ public class VarExe6 {
 		
 		//학생의 이름, 점수를 한번에 담는다
 		Member m1 = new Member(); // 인스턴스 생성.
-		m1.name = "홍길동";
+		m1.setName("홍길동");
 //		System.out.println(m1.score);
 		Member m2 = new Member();
-		m2.name = "최민수";	
+		m2.setName("최민수");	
 		Member m3 = new Member();
-		m3.name = "김병수";
+		m3.setName("김병수");
 		Member m4 = new Member();
-		m4.name = "박인만";
+		m4.setName("박인만");
 		
 		//배열.
 		System.out.println("조회할 이름 입력>>"); //입력한 값을 배열에 담아야한다.
@@ -58,10 +58,10 @@ public class VarExe6 {
 //		}
 		
 		for(int i = 0; i < members.length ; i++) {
-			members[i].score = (int) (Math.random() * 31 ) + 70;
-			System.out.println(members[i].name+ "," + members[i].score);
-			if(members[i].name.equals(search)) {
-				sum =members[i].score;
+			members[i].setScore((int) (Math.random() * 31 ) + 70);
+			System.out.println(members[i].getName()+ "," + members[i].getScore());
+			if(members[i].getName().equals(search)) {
+				sum =members[i].getScore();
 			}	
 		}
 		System.out.println(sum);
