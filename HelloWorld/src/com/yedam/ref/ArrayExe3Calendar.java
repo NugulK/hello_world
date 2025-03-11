@@ -41,7 +41,7 @@ public class ArrayExe3Calendar {
 		}
 		
 		System.out.println(" "); // 줄바꿈
-		int month = 1; 
+		int month = 3; 
 		int space = getFirstDay(month); //3.1일이 토요일이라 금요일까지 공백주기위해서 사용 첫번째날의 위치값
 		// getFirstDay(1) = 1월달의 첫번째날의 공백값을 입력한것
 		int lastDate = getLastDate(month); // 마지막날 위치값.
@@ -52,16 +52,19 @@ public class ArrayExe3Calendar {
 		
 		// 날짜출력. "1" - > 1: integer.parseInt()
 		for(int i = 1 ; i <= lastDate; i++) {
-			if(String.valueOf(i).length()==1) { // String.valueOf(i).length(문자 크기에 따라 차이를주기위해 사용)
-				System.out.print("   " + i);
-			}else if(String.valueOf(i).length()==2) {
-				System.out.print("  " + i);
+			if(i == 21) {
+				System.out.print(" 평가");
+			}else if (i != 21) {
+				if(String.valueOf(i).length()==1) { // String.valueOf(i).length(문자 크기에 따라 차이를주기위해 사용)
+					System.out.print("   " + i);
+				}else if(String.valueOf(i).length()==2) {
+					System.out.print("  " + i);
+				}				
 			}
 			// 줄 바꿈.
 			if((space+ i) % 7 == 0) {
 				System.out.println();
 			}
 		}
-		
-	}
+	} // end of main()
 }
