@@ -52,7 +52,7 @@ public class ArrayExe3Calendar {
 		
 		// 날짜출력. "1" - > 1: integer.parseInt()
 		for(int i = 1 ; i <= lastDate; i++) {
-			if(i == 21) {
+			if(month == 3 && i == 21) {
 				System.out.print(" 평가");
 			}else if (i != 21) {
 				if(String.valueOf(i).length()==1) { // String.valueOf(i).length(문자 크기에 따라 차이를주기위해 사용)
