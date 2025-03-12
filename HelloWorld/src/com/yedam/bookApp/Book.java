@@ -54,6 +54,10 @@ public class Book { //하나의 변수에다가 여러가지 정보를 담을수
 		String msg = " 제목은 " + title + " 저자는 " + author + " 출판사는 " + company + " 가격은 " + price;
 		return msg;
 	}
+	public  String ShowCompanyInfo() {
+		String cop = "출판사는" + company + "제목은" + title + "저자는"  + author + " 가격은 " + price;
+		return cop;
+	}
 	public void setTitle(String title) {
 		this.title = title;
 	}

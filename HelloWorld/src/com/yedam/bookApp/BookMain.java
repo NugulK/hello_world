@@ -165,13 +165,27 @@ public class BookMain {
 			System.out.println("없는 도서제목입니다.");
 		}
 	} // end of inquiry
+	// 6.목록조회
+	public static void detailed() {
+		boolean isExit = false;
+		System.out.println("출판사 이름을 입력>>");
+		String company = scn.nextLine();
+		for(int i = 0; i < bookStore.length; i++) {
+			if(bookStore[i] != null && bookStore[i].getCompany().equals(company)) {
+				System.out.println(bookStore[i].ShowCompanyInfo());
+				isExit = true;
+			}
+		}if(isExit == false){
+			System.out.println("없는 출판사입니다.");
+		}
+	}
 	
 	public static void main(String[] args) {
 		//저장공간.
 		boolean run = true;
 		init();
 		while(run) {
-			System.out.println("1.도서등록 2.수정 3.삭제 4.목록 5.상세조회 9.종료");
+			System.out.println("1.도서등록 2.수정 3.삭제 4.목록 5.상세조회 6.목록조회 9.종료");
 			System.out.println("선택>>");
 	
 			int menu = Integer.parseInt(scn.nextLine());
@@ -190,6 +204,9 @@ public class BookMain {
 				break;
 			case 5: //상세조회
 				inquiry();
+				break;
+			case 6: //목록조회 : 출판사이름을 넣으면 해당출판사 책들을 모두 출력
+				detailed();
 				break;
 			case 9: //종료.
 				run = false ;
