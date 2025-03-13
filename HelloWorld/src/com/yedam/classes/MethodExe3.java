@@ -27,10 +27,18 @@ public class MethodExe3 {
 	void printCard() {
 		//배열선언
 		int [] intAry = new int[16];
+		int ranNum = 0;
 		// 1 ~ 16까지의 임의수 할당.
 		for(int i = 0; i < intAry.length; i++) {
 			intAry[i] = (int) (Math.random() * 16) +1;
-			
+			for(int j= 0; j < intAry.length ; j++) {
+				ranNum = (int) (Math.random() * 16) +1;
+				if(ranNum == intAry[i]) {
+					ranNum = (int) (Math.random() * 16) +1;
+					j--;
+				}
+			}
+			intAry[i] = ranNum;
 		}
 		
 		//출력
