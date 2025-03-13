@@ -13,8 +13,8 @@ public class Book { //하나의 변수에다가 여러가지 정보를 담을수
 	
 	
 
-	//생성자 . 
-	public Book() {}
+	//생성자 . 하는역활 = 필드의 초기값을 초기화 시킨다.
+	public Book() {} //매개값이 없는 생성자 = 기본생성자
 	
 	public Book(String title, String author, String company, int price) {
 		this.title = title;
@@ -24,10 +24,11 @@ public class Book { //하나의 변수에다가 여러가지 정보를 담을수
 	}
 	
 	public Book(String title, String author, String company, int price, int orderNo) {
-		this.title = title;
-		this.author = author;
-		this.company = company;
-		this.price = price;
+//		this.title = title;
+//		this.author = author;
+//		this.company = company;
+//		this.price = price;
+		this(title, author, company, price); //this : 생성된 인스턴스를 가르킨다. ctrl + 클릭해보면 알려준다.
 		this.orderNo = orderNo;
 	}
 
@@ -55,7 +56,7 @@ public class Book { //하나의 변수에다가 여러가지 정보를 담을수
 		return msg;
 	}
 	public  String ShowCompanyInfo() {
-		String cop = "출판사는" + company + "제목은" + title + "저자는"  + author + " 가격은 " + price;
+		String cop =" 출판사: " + company + " 제목: " + title + " 저자: "  + author + " 가격: " + price;
 		return cop;
 	}
 	public void setTitle(String title) {

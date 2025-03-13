@@ -42,9 +42,9 @@ public class BookMain {
 			if(bookStore[i] == null) { // 스토리지가 비여잇는곳을 찾기위해
 				bookStore[i] = book; //비어있으면 멤버값을 넣는다.
 				System.out.println("등록되었습니다."); //등록되었을때 출력
-//				break; //for 반복문 종료
+				break; //for 반복문 종료
 			}
-			if(bookStore[i] != null && bookStore[i].getTitle().equals(title)) {
+			if(bookStore[i] != null && bookStore[i].getTitle().equals(title) != false) {
 				System.out.println("이미 등록된 도서명입니다.");
 				break;
 			}
@@ -120,11 +120,41 @@ public class BookMain {
 		int seqNo = 1;
 		System.out.println("순번 제목      저자     가격");
 		System.out.println("====================");
-		for(int i = 0; i < bookStore.length ; i++) {
-			if(bookStore[i] != null) {  // null 값을 굳이 볼필요가없기때문에 if문을 사용해서 null값이 아닌것만 본다.
-			System.out.println(seqNo++ +" " +bookStore[i].ShowList());
+		Book[] list = searchList(null);
+		for(Book bok : list) {
+			if(bok != null) {  // null 값을 굳이 볼필요가없기때문에 if문을 사용해서 null값이 아닌것만 본다.
+			System.out.println(seqNo++ +" " +bok.ShowList());
 			}
+		}
 	} // end of list()
+	public static Book[] searchList(String keyword) {
+		Book[] list = new Book[100];
+		int idx =0;
+		for (int i = 0; i < bookStore.length; i++) {
+			if (bookStore[i] != null) {
+				if(keyword == null // 
+				||bookStore[i].getCompany().equals(keyword)) {
+					list[idx++] = bookStore[i];
+				}				
+			}
+		}
+		return list;
+	}
+	// 목록조회
+	public static void listCompany() {
+		System.out.println("조회할 출판사 정보>>");
+		String company = scn.nextLine();
+		int seqNo = 1;
+		System.out.println("순번 제목      저자     가격");
+		System.out.println("====================");
+		for(int i = 0 ;  i < bookStore.length; i++) {
+			if(bookStore[i] != null) {  // null 값을 굳이 볼필요가없기때문에 if문을 사용해서 null값이 아닌것만 본다.
+				if(bookStore[i].getCompany().equals(company)) {
+					System.out.println(seqNo++ +" " +bookStore[i].ShowList());					
+				}
+			}
+	} // end of listCompany
+		
 //	System.out.println("저자입력>>");
 //	author = scn.nextLine();
 //	System.out.println("출판사입력>>");
@@ -151,6 +181,7 @@ public class BookMain {
 	} // end of edit()
 	// 상세 조회.
 	public static void inquiry() {
+		
 		boolean isExit = false;
 		System.out.println("도서제목을 입력해주세요");
 		String title = scn.nextLine();
@@ -166,19 +197,20 @@ public class BookMain {
 		}
 	} // end of inquiry
 	// 6.목록조회
-	public static void detailed() {
-		boolean isExit = false;
-		System.out.println("출판사 이름을 입력>>");
-		String company = scn.nextLine();
-		for(int i = 0; i < bookStore.length; i++) {
-			if(bookStore[i] != null && bookStore[i].getCompany().equals(company)) {
-				System.out.println(bookStore[i].ShowCompanyInfo());
-				isExit = true;
-			}
-		}if(isExit == false){
-			System.out.println("없는 출판사입니다.");
-		}
-	}
+//	public static void detailed() {
+//		boolean isExit = false;
+//		System.out.println("출판사 이름을 입력>>");
+//		String company = scn.nextLine();
+//		int seqNo = 1;
+//		for(int i = 0; i < bookStore.length; i++) {
+//			if(bookStore[i] != null && bookStore[i].getCompany().equals(company)) {
+//				System.out.println(seqNo++ +" " + bookStore[i].ShowCompanyInfo());
+//				isExit = true;
+//			}
+//		}if(isExit == false){
+//			System.out.println("없는 출판사입니다.");
+//		}
+//	}
 	
 	public static void main(String[] args) {
 		//저장공간.
@@ -206,7 +238,8 @@ public class BookMain {
 				inquiry();
 				break;
 			case 6: //목록조회 : 출판사이름을 넣으면 해당출판사 책들을 모두 출력
-				detailed();
+//				detailed();
+				listCompany();
 				break;
 			case 9: //종료.
 				run = false ;
@@ -221,6 +254,9 @@ public class BookMain {
 	public static void init () {
 		bookStore[0] = new Book("혼자공부하는자바","신용권","한빛미디어" ,28000 ,1 ); 
 		bookStore[1] = new Book("어린왕자","생택쥐베리","솔" ,15000 , 2); 
-		bookStore[2] = new Book("인어공주","디즈니","꿈꾸는달팽이" ,10000, 3); 
+		bookStore[2] = new Book("인어공주","디즈니","디즈니" ,10000, 3); 
+		bookStore[3] = new Book("백설공주","디즈니","디즈니" ,17000, 4); 
+		bookStore[4] = new Book("라푼젤","디즈니","디즈니" ,14500, 5); 
+		bookStore[5] = new Book("모아나","디즈니","디즈니" ,17700, 6); 
 	}
 } // end of BookMian()
