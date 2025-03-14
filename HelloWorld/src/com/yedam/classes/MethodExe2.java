@@ -1,7 +1,9 @@
 package com.yedam.classes;
 
 public class MethodExe2 {
-	Product[] store; //필드
+	
+	
+	private Product[] store; // 필드.
 	
 	//생성자
 	MethodExe2(){ 
@@ -15,7 +17,7 @@ public class MethodExe2 {
 	}
 	
 	//메소드. (기능)
-	boolean add(Product prd) {
+	boolean add(Product prd) { //staitc 이 되면 클래스이름.add로 실행가능하다.
 		for(int i = 0 ; i < store.length; i ++) {
 			if (store[i] == null) {
 				store[i] = prd;

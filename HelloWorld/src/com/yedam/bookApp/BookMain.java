@@ -9,11 +9,27 @@ import com.yedam.variable.Member;
  * 등록 , 수정, 삭제 , 목록
  */
 public class BookMain {
-	static Book[] bookStore =  new Book[100];
-	static Scanner scn = new Scanner(System.in); //사용자가 입력한 값을 읽어 들이기위해 스캐너 사용
+	// 싱글톤 방식
+	// 2. 정적 필드선언. 값을 하나 할당.
+	private static BookMain instance = new BookMain();	
+	// 1. 생성자 private 선언
+	private BookMain() {
+	}
+	// 3. getInstance() 제공.
+	public static BookMain getInstance() {
+		return instance;
+	}
+	
+	
+	
+	
+	
+	// 저장공간.
+	 Book[] bookStore =  new Book[100];
+	 Scanner scn = new Scanner(System.in); //사용자가 입력한 값을 읽어 들이기위해 스캐너 사용
 	
 	// 순번생성.(메소드)
-	public static int getSequnceNo() {
+	public  int getSequnceNo() {
 		int max = 0; 
 		for (int i = 0 ; i < bookStore.length; i++) {
 			if(bookStore[i] != null && max < bookStore[i].getOrderNo()) {
@@ -27,7 +43,8 @@ public class BookMain {
  	//등록.
 	// 1. 이미 존재하는 도서제목은 입력불가.
 	
-	public static void add() {
+	public  void add() { // main 메소드가  static 메소드이기 때문에 사용하는 메소드들도 전부 static 메소드여야 한다.
+		
 		System.out.print("도서명입력>> ");
 		String title = scn.nextLine();
 		System.out.println("저자입력>>");
@@ -52,7 +69,7 @@ public class BookMain {
 	}// end of add().
 	
 	//수정 
-	public static void edit() {
+	public  void edit() {
 		boolean isExit = true;
 		Book book = new Book();
 		System.out.println("도서명을 입력>>");
@@ -79,7 +96,7 @@ public class BookMain {
 	} //end of edit()
 	
 	//삭제
-	 public static void del() {
+	 public  void del() {
 				System.out.print("삭제할 도서명을 입력>>");
 				String title = scn.nextLine();
 				boolean isExit = true;
@@ -100,7 +117,7 @@ public class BookMain {
 	 }// end of del()
 	
 	//목록  
-	public static void list() {
+	public  void list() {
 		// 순번정렬.
 		// 순번 > 순번2, 순번2(null)경우는 제외  순번1(null)인경우,
 		Book temp = null;
@@ -127,7 +144,7 @@ public class BookMain {
 			}
 		}
 	} // end of list()
-	public static Book[] searchList(String keyword) {
+	public  Book[] searchList(String keyword) {
 		Book[] list = new Book[100];
 		int idx =0;
 		for (int i = 0; i < bookStore.length; i++) {
@@ -141,7 +158,7 @@ public class BookMain {
 		return list;
 	}
 	// 목록조회
-	public static void listCompany() {
+	public  void listCompany() {
 		System.out.println("조회할 출판사 정보>>");
 		String company = scn.nextLine();
 		int seqNo = 1;
@@ -180,7 +197,7 @@ public class BookMain {
 //	}
 	} // end of edit()
 	// 상세 조회.
-	public static void inquiry() {
+	public  void inquiry() {
 		
 		boolean isExit = false;
 		System.out.println("도서제목을 입력해주세요");
@@ -212,10 +229,10 @@ public class BookMain {
 //		}
 //	}
 	
-	public static void main(String[] args) {
+	public  void main(String[] args) {
 		//저장공간.
-		boolean run = true;
 		init();
+		boolean run = true;
 		while(run) {
 			System.out.println("1.도서등록 2.수정 3.삭제 4.목록 5.상세조회 6.목록조회 9.종료");
 			System.out.println("선택>>");
@@ -251,7 +268,7 @@ public class BookMain {
 		}
 		System.out.println("end of prog.");
  } // end of main()
-	public static void init () {
+	public  void init () { // main 에서 사용하기 위해서는  이여야 한다. 없으면 에러가 발생한다.
 		bookStore[0] = new Book("혼자공부하는자바","신용권","한빛미디어" ,28000 ,1 ); 
 		bookStore[1] = new Book("어린왕자","생택쥐베리","솔" ,15000 , 2); 
 		bookStore[2] = new Book("인어공주","디즈니","디즈니" ,10000, 3); 
