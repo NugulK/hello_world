@@ -19,7 +19,21 @@ public class BookMain {
 	public static BookMain getInstance() {
 		return instance;
 	}
+	// BookMain에 User[]을 선언해서 회원을 3명 등록하기.
+
 	
+	User[] userdata = new User[10];
+	public  void ud () {
+		userdata[0] = new User("aaa","aaa","aaa"); 
+		userdata[1] = new User("bbb","bbb","bbb"); 
+		userdata[2] = new User("ccc","ccc","ccc"); 
+	}
+	// BookMain에 login메소드를 선언하고 매개값으로 아이디와 비밀번호를 입력받도록 한다.
+//	public static void login(String userId, String password) {
+//		this.userId = userId;
+//		
+//	}
+//	
 	
 	
 	
@@ -268,7 +282,7 @@ public class BookMain {
 		}
 		System.out.println("end of prog.");
  } // end of main()
-	public  void init () { // main 에서 사용하기 위해서는  이여야 한다. 없으면 에러가 발생한다.
+	public  void init () { // main 에서 사용하기 위해서는 static 이여야 한다. 없으면 에러가 발생한다.
 		bookStore[0] = new Book("혼자공부하는자바","신용권","한빛미디어" ,28000 ,1 ); 
 		bookStore[1] = new Book("어린왕자","생택쥐베리","솔" ,15000 , 2); 
 		bookStore[2] = new Book("인어공주","디즈니","디즈니" ,10000, 3); 
@@ -276,4 +290,5 @@ public class BookMain {
 		bookStore[4] = new Book("라푼젤","디즈니","디즈니" ,14500, 5); 
 		bookStore[5] = new Book("모아나","디즈니","디즈니" ,17700, 6); 
 	}
+	
 } // end of BookMian()

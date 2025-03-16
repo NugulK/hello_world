@@ -3,7 +3,7 @@ package com.yedam.bookApp;
 /*
  * 실행클래스(main메소드)
  */
-public class BookApp {
+public class BookAppEx {
 	public static void main(String[] args) {
 
 		// singleton 객체 호출.
@@ -12,9 +12,10 @@ public class BookApp {
 
 		mainApp1.add(); // 1번에 등록.
 		mainApp1.list();
+		
 
 		mainApp2.list(); // 2번 목록.
-
+		
 		// 숙제:
 		// 1번) BookMain의 main메소드를 통해서만 기능활용하도록 하세요.
 		// User 클래스를 생성하고
