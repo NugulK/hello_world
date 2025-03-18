@@ -20,30 +20,53 @@ public class BookMain {
 		return instance;
 	}
 	// BookMain에 User[]을 선언해서 회원을 3명 등록하기.
+	static User[] userlist = new User[10];	
+	static Scanner scn = new Scanner(System.in); //사용자가 입력한 값을 읽어 들이기위해 스캐너 사용
 
-	
-	User[] userdata = new User[10];
-	public  void ud () {
-		userdata[0] = new User("aaa","aaa","aaa"); 
-		userdata[1] = new User("bbb","bbb","bbb"); 
-		userdata[2] = new User("ccc","ccc","ccc"); 
-	}
 	// BookMain에 login메소드를 선언하고 매개값으로 아이디와 비밀번호를 입력받도록 한다.
-//	public static void login(String userId, String password) {
-//		this.userId = userId;
-//		
-//	}
-//	
+	public static boolean login (String id, String pw) {
+		for(int i= 0 ; i < userlist.length; i++) {
+			if (userlist[i] != null &&//
+					userlist[i].getUserId().equals(id)) {
+				if(userlist[i] != null && //
+						userlist[i].getPassword().equals(pw)) {
+					
+				}
+				 	return true;
+				}
+		}
+		return false;
+	}
+	public static boolean loginOut(){
+		boolean run = true;
+		System.out.println("로그아웃 하시겠습니까?");
+		while(run) {
+			System.out.println("y/n >>");
+			String inputLogout = scn.nextLine();
+			if(inputLogout.equals("y") || inputLogout.equals("n")) {
+				System.out.println("로그인아웃");
+				return false;
+			}else if(inputLogout.equals("n") || inputLogout.equals("N")) {
+				System.out.println("로그인 상태 유지");
+				return false;
+			}
+			else {
+				System.out.println("y 또는 n을 입력해주세요.");
+			}
+		}
+		return false;
+		
+	}
+	
 	
 	
 	
 	
 	// 저장공간.
-	 Book[] bookStore =  new Book[100];
-	 Scanner scn = new Scanner(System.in); //사용자가 입력한 값을 읽어 들이기위해 스캐너 사용
+	 static Book[] bookStore =  new Book[100];
 	
 	// 순번생성.(메소드)
-	public  int getSequnceNo() {
+	public static  int getSequnceNo() {
 		int max = 0; 
 		for (int i = 0 ; i < bookStore.length; i++) {
 			if(bookStore[i] != null && max < bookStore[i].getOrderNo()) {
@@ -247,6 +270,28 @@ public class BookMain {
 		//저장공간.
 		init();
 		boolean run = true;
+		boolean login = true;
+		while(login) {
+	   		System.out.print("ID 입력 (stop 입력시 프로그램 종료) >> ");
+	   		String inputId = scn.nextLine();
+	   		if(inputId.equals("stop")) {
+	   			System.out.println("프로그램을 종료합니다");
+	   			run = false;
+	   			break;
+	   		}
+	   		System.out.print("PW 입력 >> ");
+	   		String inputPw = scn.nextLine();    		
+	   		
+	   		if(login(inputId, inputPw)) {
+	   			System.out.println("로그인 성공");
+	   			login = false;
+	   		}else if(login(inputId, inputPw) == false) {
+	   			System.out.println("로그인 실패, 아이디와 비밀번호를 다시 확인하세요\n");
+	   		}   		
+	   	}
+
+		
+		
 		while(run) {
 			System.out.println("1.도서등록 2.수정 3.삭제 4.목록 5.상세조회 6.목록조회 9.종료");
 			System.out.println("선택>>");
@@ -282,13 +327,18 @@ public class BookMain {
 		}
 		System.out.println("end of prog.");
  } // end of main()
-	public  void init () { // main 에서 사용하기 위해서는 static 이여야 한다. 없으면 에러가 발생한다.
+	public static  void init () { // main 에서 사용하기 위해서는 static 이여야 한다. 없으면 에러가 발생한다.
 		bookStore[0] = new Book("혼자공부하는자바","신용권","한빛미디어" ,28000 ,1 ); 
 		bookStore[1] = new Book("어린왕자","생택쥐베리","솔" ,15000 , 2); 
 		bookStore[2] = new Book("인어공주","디즈니","디즈니" ,10000, 3); 
 		bookStore[3] = new Book("백설공주","디즈니","디즈니" ,17000, 4); 
 		bookStore[4] = new Book("라푼젤","디즈니","디즈니" ,14500, 5); 
 		bookStore[5] = new Book("모아나","디즈니","디즈니" ,17700, 6); 
+	}
+	public static  void initUser () { // main 에서 사용하기 위해서는 static 이여야 한다. 없으면 에러가 발생한다.
+		userlist[0] = new User("aaa","aaa","123"); 
+		userlist[1] = new User("bbb","bbb","123"); 
+		userlist[2] = new User("ccc","ccc","123"); 
 	}
 	
 } // end of BookMian()

@@ -1,10 +1,12 @@
 package com.yedam.classes;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class MethodMain {
 	
 	public static void main(String[] args) {
+		Scanner scn;
 		officeApp();
 		
 		
@@ -35,11 +37,9 @@ public class MethodMain {
 				System.out.println("상품명 입력>>");
 				pn = scn.nextLine();
 				search.setProductName(pn);
-				Product[] list = m2.productList(search);
-				for(int i = 0 ; i < list.length; i ++) {
-					if (list[i] != null) {
-						System.out.println(list[i].showList());
-					}
+				List<Product> list = m2.productList(search);
+				for(int i = 0 ; i < list.size(); i ++) {
+						System.out.println(list.get(i).showList());
 				}
 				break;
 			case 2: //추가.
@@ -135,11 +135,9 @@ public class MethodMain {
 		search.setPrice(400);
 		
 		//실행하는 메소드 
-		Product[] list = m2.productList(search);
-		for(int i = 0 ; i < list.length; i ++) {
-			if (list[i] != null) {
-				System.out.println(list[i].showList());
-			}
+		List<Product> list = m2.productList(search);
+		for(int i = 0 ; i < list.size(); i ++) {
+				System.out.println(list.get(i).showList());
 		}
 	} // end of method2()
 	
