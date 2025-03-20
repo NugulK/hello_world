@@ -1,7 +1,17 @@
 package com.yedam.classes;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 public class MethodExe2 {
 	
@@ -10,15 +20,68 @@ public class MethodExe2 {
 	
 	//생성자
 	MethodExe2(){ 
-		store = new ArrayList<Product>();  //new Product[10];
-		store.add(new Product("A001", "지우개",500));
-		store.add(new Product("B001", "샤프1000",1000));
-		store.add(new Product("C001", "연필500",800));
-		store.add(new Product("D001", "지우개",1000));
-		store.add(new Product("E001", "볼펜1500",1500));
-		store.add(new Product("F001", "필통",3000));
+		init(); //초기화한다는 의미
+		
 	}
 	
+	void init1() {
+		store = new ArrayList<Product>();  //new Product[10];
+		try {
+			Scanner scn = new Scanner(new FileInputStream("c:/temp/message.txt"));
+			while(true) {
+				String msg = scn.nextLine();
+				String[] msgAry = msg.split(" ");
+				store.add(new Product(msgAry[0], msgAry[1],Integer.parseInt(msgAry[2])));
+			}
+		}catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}catch(NoSuchElementException e) {	
+		}
+		//초기화 작업의 끝.
+	} // end of init1 ()
+	
+	void init() {
+		try {
+			FileInputStream fis = new FileInputStream("c:/temp/object.dat");
+			ObjectInputStream ois = new ObjectInputStream(fis);
+		    store = (List<Product>) ois.readObject(); //읽어드린 메소드를 객체로 변경시키는게 readObject()
+		} catch (Exception e) {
+//			e.printStackTrace();
+		}
+	} //end of init()
+	
+	void save() {
+		try {
+			FileOutputStream fos = new FileOutputStream("c:/temp/object.dat");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(store); // ArrayList<Product>()
+			oos.flush();
+			oos.close();fos.close();
+					
+		} catch (IOException e) {
+		e.printStackTrace();
+		}
+		
+	} //end of save
+	
+	//종료시점에 store 컬렉션 갯수만큼 반복하고  정보를 message.txt에 저장.
+	void save1() {
+		try {
+			Writer writer = new FileWriter("c:/temp/message.txt");
+			for(Product prod : store) {
+				String msg = prod.getProductCode() + " " + prod.getProductName() + " " + prod.getPrice();
+				writer.write(msg + "\n"); // "공백"
+				writer.flush();
+//				writer.write(prod.getProductCode() + " ");
+//				writer.write(prod.getProductName() + " ");
+//				writer.write(prod.getPrice() + "\n");
+//				writer.flush();
+			}
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	} // end of save()
 	
 	//메소드. (기능)
 	boolean add(Product prd) { //staitc 이 되면 클래스이름.add로 실행가능하다.

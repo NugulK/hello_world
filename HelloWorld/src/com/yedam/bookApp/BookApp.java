@@ -1,12 +1,24 @@
 package com.yedam.bookApp;
 
 import java.util.List;
+import java.util.Map;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 
 /*
  * 실행클래스(main메소드)
  */
 public class BookApp {
 	public static void main(String[] args) {
+		
+		//List 컬렉션에 Map 타입 
+//		MemberJdbc dao = new MemberJdbc();
+//		List<Map<String, String>> list = dao.memberList();
+//		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//		String json =  gson.toJson(list);
+//		System.out.println(json);
 		
 		//추가용 
 //		Book book = new Book();//매개값으로 전달할 북개체 생성.
