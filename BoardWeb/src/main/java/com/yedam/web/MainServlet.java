@@ -51,7 +51,7 @@ public class MainServlet extends HttpServlet {
 			  for (BoardVO board : list) {
 				  html += "<tr>";
 				  html += "<td>" + board.getBoardNo() + "</td>";
-				  html += "<td>" + board.getTitle() + "</td>";
+				  html += "<td><a href='getBoard?board_no="+board.getBoardNo()+"'>" + board.getTitle() + "</a></td>";
 				  html += "<td>" + board.getContent() + "</td>";
 				  html += "<td>" + board.getWriter() + "</td>";
 				  html += "<td>" + board.getWriteDate() + "</td>";
