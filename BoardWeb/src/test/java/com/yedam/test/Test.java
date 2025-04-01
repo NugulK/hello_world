@@ -29,7 +29,7 @@ public class Test {
 			}else {
 				System.out.println("등록실패.");
 			}
-			List<BoardVO> list = mapper.selectBoard();
+			List<BoardVO> list = mapper.selectBoard(null);
 			for(BoardVO brd : list) {
 				System.out.println(brd.toString());
 			}
