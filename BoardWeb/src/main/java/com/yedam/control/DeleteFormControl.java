@@ -13,7 +13,7 @@ import com.yedam.common.DataSource;
 import com.yedam.mapper.BoardMapper;
 import com.yedam.vo.BoardVO;
 
-public class deleteFormControl implements Control {
+public class DeleteFormControl implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
