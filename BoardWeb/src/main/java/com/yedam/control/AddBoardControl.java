@@ -20,7 +20,7 @@ public class AddBoardControl implements Control {
 		resp.setCharacterEncoding("UTF-8"); // 응답 데이터 한글 깨짐 방지
 		if(req.getMethod().equals("GET")) {
 			// 요청재지정. // url에 직접 입력, 링크 => get방식요청.
-			req.getRequestDispatcher("/WEB-INF/views/addForm.jsp").forward(req, resp);
+			req.getRequestDispatcher("board/addForm.tiles").forward(req, resp);
 			
 			
 		}else if (req.getMethod().equals("POST")){

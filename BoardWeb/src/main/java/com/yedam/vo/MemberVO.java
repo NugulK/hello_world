@@ -12,4 +12,5 @@ public class MemberVO {
 	private String memberpw;
 	private String memberName;
 	private String responsibility;
+	private String images;
 }

@@ -1,12 +1,7 @@
-<%@page import="com.yedam.common.PageDTO"%>
-<%@page import="com.yedam.vo.BoardVO"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<jsp:include page="includes/header.jsp"/>
-
 <!-- null 값 방지 -->
 <c:set var="searchCondition" value="${empty searchCondition ? '' : searchCondition}" />
 <c:set var="keyword" value="${empty keyword ? '' : keyword}" />
@@ -94,4 +89,3 @@
     </ul>
 </nav>
 
-<jsp:include page="includes/footer.jsp"></jsp:include>

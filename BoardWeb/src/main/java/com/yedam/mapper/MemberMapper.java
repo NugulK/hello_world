@@ -6,4 +6,5 @@ import com.yedam.vo.MemberVO;
 
 public interface MemberMapper {
 	MemberVO selectMember(@Param("id") String id, @Param("pw")String pw);
+	int insertMember(MemberVO member); // 입력.
 }

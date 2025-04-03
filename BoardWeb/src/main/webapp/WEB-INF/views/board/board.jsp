@@ -3,7 +3,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<jsp:include page="includes/header.jsp" />
 <!-- webapp/WEB-INF/views/board.jsp -->
 <h3>상세조회(board.jsp)</h3>
 <form action="modifyForm.do">
@@ -61,4 +60,3 @@
 		location.href='deleteForm.do?bno=${board.boardNo}'; // 삭제화면 -> 삭제처리
 	}
 </script>
-<jsp:include page="includes/footer.jsp"></jsp:include>
