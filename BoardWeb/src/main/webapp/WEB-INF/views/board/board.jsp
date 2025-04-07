@@ -3,6 +3,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!-- webapp/WEB-INF/views/board.jsp -->
 <h3>상세조회(board.jsp)</h3>
 <form action="modifyForm.do">
@@ -49,10 +50,41 @@
 		</c:if>
 	</table>
 </form>
-<p>
-	<a href='boardList.do'>목록으로</a>
-</p>
+<!-- 댓글관련. -->
+<style>
+	div.reply span {
+		display: inline-block;
+		
+	}
+	div.reply ul {
+		list-style-type: none;
+		
+	}
+</style>
+<div class="container reply">
+	<!-- 등록. -->
+	<div class="header">
+		<input class="col-sm-8" id="reply">
+		<button class="col-sm-3 btn btn-primary addReply">댓글등록</button>
+	</div>
+	<!-- 목록. -->
+	<div class="content">
+		<ul>
+			<li>
+				<span class="col-sm-2">글번호</span>
+				<span class="col-sm-5">내용</span>
+				<span class="col-sm-2">작성자</span>
+				<span class="col-sm-2">삭제</span>
+			</li>
+		</ul>	
+	</div>
+	<!-- 페이징. -->
+	
+</div>
+
 <script>
+	const bno = "${board.boardNo}";
+	const replyer = "${logId}"; 
 	// 삭제버튼에 이벤트등록.
 	document.querySelector('button.btn.btn-danger').addEventListener('click',deleteFnc);
 	// 삭제함수.
@@ -60,3 +92,5 @@
 		location.href='deleteForm.do?bno=${board.boardNo}'; // 삭제화면 -> 삭제처리
 	}
 </script>
+<<script src="js/boardService.js"></script>
+<script src="js/board1.js"></script>
