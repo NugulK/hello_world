@@ -1,6 +1,7 @@
 package com.yedam.control;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,14 +27,17 @@ public class AddReplycontrol implements Control {
 		String bno = req.getParameter("bno");
 		String replyer = req.getParameter("replyer");
 		String reply = req.getParameter("reply");
-
+		// 댓글등록.
 		ReplyVO rvo = new ReplyVO();
 		rvo.setBoardNo(Integer.parseInt(bno));
 		rvo.setReplyer(replyer);
 		rvo.setReply(reply);
+		rvo.setReplyDate(new Date());
 		System.out.println(rvo);
+		
 		Gson gson = new GsonBuilder().create(); //gson사용.	
 		Map<String, Object> map = new HashMap<>();
+		
 		// 서비스 호출.
 		ReplyService svc = new ReplyServiceImpl();
 		if (svc.addReply(rvo)) {

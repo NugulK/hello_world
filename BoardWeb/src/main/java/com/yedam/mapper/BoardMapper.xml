@@ -3,26 +3,32 @@
 
 <mapper namespace="com.yedam.mapper.BoardMapper">
 	<!-- 목록. -->
-	<select id="selectBoard" resultType="board" parameterType="int"> select b.*
-		from (select rownum rn, a.* from (select * from tbl_board <choose>
+	<select id="selectBoard" resultType="board" parameterType="int">
+		select b.*
+		from (select rownum rn, a.* from (select * from tbl_board
+		<choose>
 			<when
 				test="searchCondition != null and searchCondition == 'T'.toString() ">
-		where title like '%'||#{keyword}||'%'
+				where title like '%'||#{keyword}||'%'
 			</when>
 			<when
 				test="searchCondition != null and searchCondition == 'W'.toString() ">
-		where writer like '%'||#{keyword}||'%'
+				where writer like '%'||#{keyword}||'%'
 			</when>
 			<when
 				test="searchCondition != null and searchCondition == 'TW'.toString() ">
-		where (title like '%'||#{keyword}||'%' or writer like
-		'%'||#{keyword}||'%')
+				where (title like '%'||#{keyword}||'%' or writer like
+				'%'||#{keyword}||'%')
 			</when>
 		</choose>
-		order by board_no desc) a) b where b.rn > (#{page} - 1) * 5 <![CDATA[
-		and b.rn <= (#{page} * 5)
-		]]>
+		order by board_no desc)a) b 
+		<![CDATA[]]>
 	</select>
+	<!-- 
+		 where b.rn > (#{page} - 1) * 5 
+		 and b.rn <= (#{page} * 5)
+	
+	 -->
 
 	<!-- 등록. -->
 	<insert id="insertBoard" parameterType="board">
@@ -33,10 +39,14 @@
 	</insert>
 
 	<!-- 수정. -->
-	<update id="updateBoard" parameterType="board"> update tbl_board set title =
-		nvl(#{title}, title) <if test="content != null">
+	<update id="updateBoard" parameterType="board">
+		update tbl_board set title =
+		nvl(#{title}, title)
+		<if test="content != null">
 			,content = #{content}
-		</if> where board_no = #{boardNo} </update>
+		</if>
+		where board_no = #{boardNo}
+	</update>
 	<!-- 삭제. -->
 	<delete id="deleteBoard" parameterType="int">
 		delete from tbl_board
@@ -44,7 +54,8 @@
 	</delete>
 	<!-- 상세조회. -->
 	<select id="selectOne" parameterType="int" resultType="board">
-		select board_no
+		select
+		board_no
 		,title
 		,writer
 		,content
@@ -54,19 +65,21 @@
 		#{boardNo}
 	</select>
 	<!-- 전체건수. -->
-	<select id="selectTotal" resultType="int"> select count(1) from tbl_board <choose>
+	<select id="selectTotal" resultType="int">
+		select count(1) from tbl_board
+		<choose>
 			<when
 				test="searchCondition != null and searchCondition == 'T'.toString() ">
-		where title like '%'||#{keyword}||'%'
+				where title like '%'||#{keyword}||'%'
 			</when>
 			<when
 				test="searchCondition != null and searchCondition == 'W'.toString() ">
-		where writer like '%'||#{keyword}||'%'
+				where writer like '%'||#{keyword}||'%'
 			</when>
 			<when
 				test="searchCondition != null and searchCondition == 'TW'.toString() ">
-		where (title like '%'||#{keyword}||'%' or writer like
-		'%'||#{keyword}||'%')
+				where (title like '%'||#{keyword}||'%' or writer like
+				'%'||#{keyword}||'%')
 			</when>
 		</choose>
 	</select>

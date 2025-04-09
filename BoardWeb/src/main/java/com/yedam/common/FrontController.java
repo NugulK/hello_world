@@ -11,17 +11,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.control.AddBoardControl;
+import com.yedam.control.AddEventControl;
 import com.yedam.control.AddReplycontrol;
 import com.yedam.control.BoardControl;
 import com.yedam.control.BoardListControl;
 import com.yedam.control.LoginControl;
 import com.yedam.control.ModifyBoardControl;
 import com.yedam.control.ModifyFormControl;
+import com.yedam.control.RLDatatable;
+import com.yedam.control.RemoveControl;
+import com.yedam.control.ReplyCountControl;
 import com.yedam.control.ReplyListControl;
 import com.yedam.control.SignUpControl;
 import com.yedam.control.removeReplyControl;
 import com.yedam.control.DeleteBoardControl;
 import com.yedam.control.DeleteFormControl;
+import com.yedam.control.EventFormControl;
+import com.yedam.control.EventListControl;
 import com.yedam.control.JSControl;
 import com.yedam.control.LoginFormControl;
 import com.yedam.control.LogoutControl;
@@ -61,6 +67,15 @@ public class FrontController extends HttpServlet {
 		map.put("/replyList.do", new ReplyListControl()); // 댓글데이터.
 		map.put("/removeReply.do", new removeReplyControl()); //댓글삭제.
 		map.put("/addReply.do", new AddReplycontrol()); // 댓글추가
+		map.put("/replyCount.do", new ReplyCountControl()); // 댓글수.
+		// Datatable 연습용.
+		map.put("/replyListDatatable.do", new RLDatatable()); // 댓글목록.
+		
+		// fullcalendar관련.
+		map.put("/eventForm.do", new EventFormControl()); //이벤트 화면 컨트롤.
+		map.put("/addevent.do", new AddEventControl()); //추가이벤트 컨트롤.
+		map.put("/removeEvent.do", new RemoveControl()); //추가이벤트 컨트롤.
+		map.put("/eventList.do", new EventListControl()); //추가이벤트 컨트롤.
 	}
 	// service 메소드.
 	@Override

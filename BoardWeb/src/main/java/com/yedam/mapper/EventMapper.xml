@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.mapper.EventMapper">
+	<!-- 이벤트 추가 -->
+	<insert id="insertEvent" parameterType="event">
+		insert into tbl_event (title, start_date, end_date)
+		VALUES (#{title}, #{startDate}, #{endDate})
+	</insert>
+	
+	 <!-- 2. 이벤트 리스트 조회 -->
+    <select id="selectEventList" resultType="event">
+		SELECT	*
+		FROM tbl_event
+</select>
+
+    <!-- 3. 이벤트 삭제 -->
+    <delete id="deleteEvent" parameterType="event">
+         DELETE FROM tbl_event
+   		 WHERE title = #{title}
+   		 AND start_date = #{startDate}
+    </delete>
+</mapper>

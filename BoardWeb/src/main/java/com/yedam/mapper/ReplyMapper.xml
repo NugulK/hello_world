@@ -2,15 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.mapper.ReplyMapper">
 	<!-- 댓글목록. -->
-	<select id="selectList" resultType="reply" parameterType="int">
-		select reply_no
-			  ,reply
-			  ,replyer
-			  ,reply_date
-			  ,board_no
-		from tbl_reply
-		where board_no = #{boardNo}
-		order by reply_no
+	<select id="selectList" resultType="reply" parameterType="search">
+		SELECT b.reply_no,
+       		   b.reply,
+               b.replyer,
+               b.reply_date,
+               b.board_no
+		FROM  (SELECT /*+ INDEX_DESC(r reply_pk) */ rownum rn, r.*
+               FROM tbl_reply r
+               WHERE board_no = #{boardNo}
+               )b
+		WHERE b.rn > (#{page} - 1) * 5
+		<![CDATA[
+		AND   b.rn <= #{page} * 5
+		]]>
 	</select>
 	
 	<!-- 댓글등록. -->
@@ -38,5 +43,17 @@
 		from tbl_reply
 		where board_no = #{boardNo}
 	</select>
+	<!-- 댓글 건수. -->
+	<select id="selectReplyCnt" resultType="int" parameterType="int" >
+		select count(1)
+		from   tbl_reply
+		where  board_no = #{boardNo}
+	</select>
 	
+	<!-- Datatable용도. -->
+	<select id="selectListForDT" parameterType="int" resultType="map" >
+		SELECT /*+ INDEX_DESC(r reply_pk) */ r.*
+        FROM tbl_reply r
+        WHERE board_no = #{boardNo}
+	</select>
 </mapper>
