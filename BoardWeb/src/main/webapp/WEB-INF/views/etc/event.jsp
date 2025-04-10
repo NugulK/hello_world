@@ -2,117 +2,101 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<script src='js/index.global.js'></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-    var events = [];
+  <meta charset='utf-8' />
+  <script src='js/index.global.js'></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', async function () {
+	  var calendarEl = document.getElementById('calendar');
+	  
+	  console.log('1');
+	  var events = [];
+	  // Ajax call.
+	  
+	  console.log('2');
+	  let result = await fetch('eventList.do');
+	  let result2 = await result.json(); 
+	  console.log(result2);
+	  events = result2;
 
-    // Ajax call
-    fetch('eventList.do')
-      .then(result => result.json())
-      .then(eventListCallback)
-      .catch(err => console.error(err))
-    
-    function eventListCallback(result){
-    	//events = result; // json문자열 -> events 변수 할당
-      	result.forEach(item => {
-      		events.push({title: item.title, start: item.startDate, end: item.endDate})
-      	})
-   	console.log(events)
-    	
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      headerToolbar: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay'
-      },
-      initialDate: '2025-04-09',
-      navLinks: true, // can click day/week names to navigate views
-      selectable: true,
-      selectMirror: true,
-      select: function(arg) {
-    	  var title = prompt('이벤트 제목을 입력하세요:');
-    	  if (title) {
-    	    fetch('addevent.do', {
-    	      method: 'POST',
-    	      headers: {
-    	        'Content-Type': 'application/x-www-form-urlencoded'
-    	      },
-    	      body: 'title=' + encodeURIComponent(title)
-    	          + '&start=' + encodeURIComponent(arg.startStr)
-    	          + '&end=' + encodeURIComponent(arg.endStr)
-    	    })
-    	    .then(response => response.text())
-    	    .then(data => {
-    	      if (data === 'success') {
-    	        alert('이벤트가 추가되었습니다.');
-    	        
-    	        calendar.addEvent({
-    	          title: title,
-    	          start: arg.start,
-    	          end: arg.end,
-    	          allDay: arg.allDay
-    	        });
-    	      } else {
-    	        alert('이벤트 추가 실패');
-    	      }
-    	    })
-    	    .catch(err => console.error('에러 발생:', err));
-    	  }
-    	  calendar.unselect();
-    	},
-      eventClick: function(arg) {
-    	  if (confirm('이 이벤트를 삭제할까요?')) {
-   		    // 서버에 삭제 요청 보내기
-   		    fetch('removeEvent.do', {
-   		      method: 'POST',
-   		      headers: {
-   		        'Content-Type': 'application/x-www-form-urlencoded'
-   		      },
-   		      body: 'title=' + encodeURIComponent(arg.event.title)
-   		          + '&start=' + encodeURIComponent(arg.event.startStr)
-   		    })
-   		    .then(response => response.text())
-   		    .then(data => {
-   		      if (data === 'success') {
-   		        alert('삭제되었습니다.');
-   		        arg.event.remove(); //화면에서도 삭제
-   		      } else {
-   		        alert('삭제 실패');
-   		      }
-   		    })
-   		    .catch(err => console.error('삭제 중 에러 발생:', err));
-   		  }
-    	},
-      editable: true,
-      dayMaxEvents: true, // allow "more" link when too many events
+	  console.log('3');
+	    var calendar = new FullCalendar.Calendar(calendarEl, {
+	      headerToolbar: {
+	        left: 'prev,next today',
+	        center: 'title',
+	        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+	      },
+	      initialDate: '2025-04-12',
+	      navLinks: true,
+	      selectable: true,
+	      selectMirror: true,
+	      select: async function (arg) {
+	    	  console.log(arg);
+	        var title = prompt('Event Title:');
+	        if (title) {
+	          let allDay = arg.allDay; // 하루전체일정, 부분일정.
+	          let start = allDay ? arg.startStr : arg.startStr.substring(0, 19);
+	          let end = allDay ? arg.endStr : arg.endStr.substring(0, 19);
+	         
+	          //let r1 = await fetch('addevent.do?title=' + title + '&start=' + start + '&end=' + end);
+	          let r1 = await fetch('addevent.do', {
+	        	  method: 'post',
+	        	  headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+	        	  body: 'title=' + title + '&start=' + start + '&end=' + end
+	          });
+	          let r2 = await r1.json();
+	          
+	          if (r2.retCode == 'OK'){
+		          calendar.addEvent({
+		            title: title,
+		            start: arg.start,
+		            end: arg.end,
+		            allDay: arg.allDay
+		          })
+	          }else{
+	         	 alert('등록실패');
+	          }
+	        } // end of if(title)
+	        calendar.unselect();
+	      },
+	      eventClick: async function (arg) {
+	    	  console.log(arg);
+	          if (confirm('Are you sure you want to delete this event?')) {
+	            let xhtp = await fetch('removeEvent.do?title=' + arg.event.title + '&start=' + arg.event.startStr + '&end=' + arg.event.endStr);
+	            let result = await xhtp.json();
+	            if (result.retCode == 'OK') {
+	              arg.event.remove();
+	            } else {
+	              alert('Transaction error!');
+	            }
+	          }
+	      },
+	      editable: true,
+	      dayMaxEvents: true,
+	      events: events
+	    });
+	    calendar.render();
+	});
+  </script>
+  <style>
+    body {
+      margin: 40px 10px;
+      padding: 0;
+      font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+      font-size: 14px;
+    }
 
-      events: events
-    })
-    calendar.render();
-    } // end of eventListCallback()
-  });
-</script>
-<style>
-body {
-	margin: 40px 10px;
-	padding: 0;
-	font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-	font-size: 14px;
-}
-
-#calendar {
-	max-width: 1100px;
-	margin: 0 auto;
-}
-</style>
+    #calendar {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+  </style>
 </head>
+
 <body>
-
-	<div id='calendar'></div>
-
+  <h4>event.jsp</h4>
+  <div id='calendar'></div>
 </body>
+
 </html>

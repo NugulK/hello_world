@@ -57,9 +57,9 @@
 </form>
 <!-- 댓글관련. -->
 <div class="d-flex align-items-center gap-2 mb-3">
-	<input type="text" name="keyword" class="form-control w-50" id="reply" placeholder="댓글 입력">
+	<input type="text" name="keyword" class="form-control w-50" id="addContent" placeholder="댓글 입력">
 	<button id="addRow" class="btn btn-primary">등록</button>
-	<button id="button" class="btn btn-danger">삭제</button>
+	<button id="delRow" class="btn btn-danger">삭제</button>
 </div>
 <table id="example" class="display" style="width:100%">
 	<thead>

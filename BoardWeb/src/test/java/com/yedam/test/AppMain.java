@@ -1,19 +1,24 @@
 package com.yedam.test;
 
 import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
 
 import com.google.gson.Gson;
-import com.yedam.service.EtcService;
-import com.yedam.service.EtcServiceImpl;
-import com.yedam.vo.EventVO;
+import com.google.gson.GsonBuilder;
+import com.yedam.common.DataSource;
+import com.yedam.mapper.EventMapper;
 
 public class AppMain {
 	public static void main(String[] args) {
 		
-		EtcService svc = new EtcServiceImpl();
-		List<EventVO> list = svc.selectEventList();
+		SqlSession sqlSession = DataSource.getInstance().openSession(true);
+		EventMapper mapper = sqlSession.getMapper(EventMapper.class);
 		
-		Gson gson = new Gson(); 
+		List<Map<String, Object>> list = mapper.selectWriter();
+		
+		Gson gson = new GsonBuilder().setPrettyPrinting().create(); 
 		String json = gson.toJson(list);
 		
 		System.out.println(json);

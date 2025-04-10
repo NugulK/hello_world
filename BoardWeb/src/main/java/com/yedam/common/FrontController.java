@@ -15,6 +15,8 @@ import com.yedam.control.AddEventControl;
 import com.yedam.control.AddReplycontrol;
 import com.yedam.control.BoardControl;
 import com.yedam.control.BoardListControl;
+import com.yedam.control.ChartControl;
+import com.yedam.control.ChartJsonCont;
 import com.yedam.control.LoginControl;
 import com.yedam.control.ModifyBoardControl;
 import com.yedam.control.ModifyFormControl;
@@ -76,6 +78,9 @@ public class FrontController extends HttpServlet {
 		map.put("/addevent.do", new AddEventControl()); //추가이벤트 컨트롤.
 		map.put("/removeEvent.do", new RemoveControl()); //추가이벤트 컨트롤.
 		map.put("/eventList.do", new EventListControl()); //추가이벤트 컨트롤.
+		// 구글차트.
+		map.put("/chart.do", new ChartControl());
+		map.put("/chartJson.do", new ChartJsonCont());
 	}
 	// service 메소드.
 	@Override
