@@ -25,11 +25,12 @@
 			</tr>
 		</thead>
 		<tbody id="centerList">
-			<tr>
-				<td></td>
-			</tr>
+
 		</tbody>
 	</table>
+	<ul id="list">
+		
+	</ul>
 	<script>
 		let url =
 			'https://api.odcloud.kr/api/15077586/v1/centers?page=1&perPage=284&serviceKey=0UrtEkTzq%2BKR5T0ZBU16QSoAmXFfNV3GqiLUFK%2FVeIs%2B2Cy7pDwFfeQeIqOetmZ2qnBuR3j5PKJNOSOIuMRN5A%3D%3D';
@@ -65,8 +66,8 @@
 
 		// 이벤트.. this 1) 함수 : window 2) 이벤트 : 이벤트대상
 		document.querySelector('#choice').addEventListener('change', function (e) {
-			let val = this.value;
-			document.querySelector('#centerList').innerHTML = "";
+			let val = this.value; // 사용자의 선택값.
+			document.querySelector('#centerList').innerHTML = ""; // 목록차트 초기화.
 
 			centerList//
 				.filter(center =>  center.sido == val)
@@ -100,6 +101,7 @@
 			window.open('map.jsp?lat=' + center.lat + '&lng=' + center.lng);
 		}
 	</script>
+	<script src="js/array2.js"></script>
 </body>
 
 </html>

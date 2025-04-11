@@ -28,6 +28,7 @@ public class AddEventControl implements Control {
 		map.put("end", end);
 
 		EtcService svc = new EtcServiceImpl();
+		
 		if (svc.addEvent(map)) {
 			resp.getWriter().print("{\"retCode\": \"OK\"}");
 		} else {
